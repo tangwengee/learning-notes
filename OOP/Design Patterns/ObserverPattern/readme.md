@@ -22,6 +22,11 @@ Reducing coupling will increase stability and reusability.
 - Potential for circular or cascading notifications in a heavily event-based system. This problem is aggravated by simple update notifications making it difficult to deduce what event actually took place.
 - Ensure subject is in a consistent state before calling notification. 
 
+## Pros and Cons
+- Open/Closed Principle. We can introduce new subscriber classes without having to change the publisher's code (and vice versa if there's a publisher interface)
+- We can establish relations between objects at runtime
+- Subscribers are notified in random order.
+
 ## Example
 - Even framework in Swing/other UIs. Lets us know if mourse/keyboard/etc. events occur. 
 
