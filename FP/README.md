@@ -1,4 +1,7 @@
 # Functional Programming (Foundational)
+Personal learning notes taken from reading 
+1. Mastering JavaScript Functional Programming - Second Edition by Federico Kereki
+2. MDN Web Docs
 
 ## Scope
 
@@ -19,7 +22,9 @@
 ### map, reduce, filer
 
 ### Immutability
-Minimize side effects by reducing side effects through immutability. Straightforward techniques to disallow side effects (mutation):
+
+Minimize side effects by reducing side effects through immutability. Straightforward techniques to disallow side
+effects (mutation):
 
 1. Avoid mutator functions
 2. Use `const` declarations instead of `let`
@@ -181,3 +186,63 @@ const object_deepcopy_2 = structuredClone(oldObject);
 ### Recursion
 
 ### Currying
+
+Currying is the process of transforming an _m_-ary function (that is, a function of arity m) into a sequence of _m_
+unary functions, each of which receives one argument of the original function, from left to right. (The first function
+receives the first argument of the original function, and returns a second function that receives the second argument,
+and returns a third function that receives the third argument, and so on.) Upon being called with an argument, each
+function produces the next one in the sequence, and the last one does the actual calculations.
+
+- arity - number of arguments or operands taken by a function
+- unary - the simplest numeral system to represent natural numbers;
+
+Suppose we have a function that calculate VAT for an amount. The following code example would make sense if rate is
+dynamic per calculation.
+
+```typescript
+const addVAT = (rate, amount) => amount * (1 + rate / 100);
+
+addVAT(20, 500); // 600 -- that is, 500 + 20%
+addVAT(15, 200); // 230 -- 200 +15%
+```
+
+If we are to apply a constant rate, we can curry addVAT() function to produce a single source of truth for the rate.
+
+```typescript
+/* Written in arrow function */
+const addVATcurried = (rate: number) => (amount: number) => amount * (1 + rate / 100);
+const addNationalVAT = addVATcurried(6);
+console.log(addNationalVAT(1500)); // 1590 -- 1500 + 6%
+
+/* Written in regular function */
+function addVATcurried_2(rate: number) {
+   return function (amount: number) {
+      return amount * (1 + rate / 100)
+   }
+}
+
+const addNationalVAT_2 = addVATcurried_2(6);
+console.log(addNationalVAT_2(1500)); // 1590 -- 1500 + 6%
+```
+
+1. Currying by hand
+2. Currying with bind()
+3. Currying with eval()
+
+#### Currying by hand
+
+```typescript
+const sum = (x, y) => {
+   if (x !== undefined && y !== undefined) { // If there are two argumments, it adds them
+      return x + y;
+   } else if (x !== undefined && y == undefined) { // If there are one argument, it returns a new function which expects a single argument
+      return z => sum(x, z);
+   } else { // Returns itself if no arguments
+      return sum;
+   }
+};
+```
+
+#### Currying with bind()
+
+#### Currying with eval()
