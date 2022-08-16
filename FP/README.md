@@ -19,15 +19,14 @@
 ### map, reduce, filer
 
 ### Immutability
-
-Straightforward techniques to disallow side effects (mutation):
+Minimize side effects by reducing side effects through immutability. Straightforward techniques to disallow side effects (mutation):
 
 1. Avoid mutator functions
 2. Use `const` declarations instead of `let`
 3. Freeze objects
 4. Clone objects
-5. Use getters and setters
-6. Use lenses to access and set attributes
+5. Use getters and setters // examples to be provided
+6. Use lenses to access and set attributes // examples to be provided
 
 #### Avoid mutator functions
 
