@@ -19,7 +19,7 @@
 ### map, reduce, filer
 
 ### Immutability
-Minimize side effects by reducing side effects through immutability. Straightforward techniques to disallow side effects (mutation):
+Minimize side effects through immutability. Straightforward techniques to disallow side effects (mutation):
 
 1. Avoid mutator functions
 2. Use `const` declarations instead of `let`
