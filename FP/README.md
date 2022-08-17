@@ -245,4 +245,46 @@ const sum = (x, y) => {
 
 #### Currying with bind()
 
+```typescript
+const curryByBind = fn =>
+  fn.length === 0 ? fn() : p => curryByBind(fn.bind(null, p));
+```
+
+```typescript
+/* When the number of parameter is not fixed, we can pass the desired number of arguments */
+const curryByBindWithLength = (fn, len = fn.length) =>
+        len === 0 ? fn() : p => curryByBindWithLength(fn.bind(null, p), len - 1);
+
+const sum2 = (...args) => args.reduce((x, y) => x + y, 0);
+sum2.length; // 0; curryByBind() wouldn't work
+
+sum2(1, 5, 3); // 9
+sum2(1, 5, 3, 7); // 16
+sum2(1, 5, 3, 7, 4); // 20
+
+curriedSum5 = curryByBindWithLength(sum2, 5); // curriedSum5 will expect 5 parameters
+curriedSum5(1)(5)(3)(7)(4); // 20
+```
+
+Testing currying function 
+
+```typescript
+const sum2 = (...args) => args.reduce((x, y) => x + y, 0);
+
+describe("with curryByBindWithLength", function () {
+   it("should fix arguments one by one", () => {
+      const sumA = curryByBindWithLength(sum2, 5);
+      const sumB = sumA(1)(2)(3)(4)(5);
+      expect(sumB).toBe(sum2(1, 2, 3, 4, 5));
+   });
+
+   it("should work with arity 1", () => {
+      const sumA = curryByBindWithLength(sum2, 1);
+      const sumB = sumA(111);
+      expect(sumB).toBe(sum2(111));
+   });
+});
+```
+
 #### Currying with eval()
+Skipped for now...
